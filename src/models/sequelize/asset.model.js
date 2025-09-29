@@ -27,11 +27,11 @@ export const AssetModel = sequelize.define("Asset", {
 AssetModel.belongsTo(UserModel, {
   foreignKey: "user_id",
   targetKey: "id",
-  as: "User",
+  as: "responsible",
 });
 
 UserModel.hasMany(AssetModel, {
   foreignKey: "user_id",
   sourceKey: "id",
-  as: "Assets",
+  as: "assets",
 });

@@ -19,11 +19,11 @@ export const ProfileModel = sequelize.define("Profile", {
 ProfileModel.belongsTo(UserModel, {
   foreingKey: "user_id",
   targetKey: "id",
-  as: "User",
+  as: "user",
 });
 
 UserModel.hasOne(ProfileModel, {
   foreingKey: "user_id",
   sourceKey: "id",
-  as: "Profile",
+  as: "profile",
 });
