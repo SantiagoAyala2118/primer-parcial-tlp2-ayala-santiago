@@ -47,7 +47,7 @@ const UserSchema = new Schema(
 );
 
 UserSchema.virtual("assets", {
-  ref: "Article",
+  ref: "Asset",
   localField: "_id",
   foreignField: "responsible",
   justOne: false,
