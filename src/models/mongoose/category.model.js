@@ -16,6 +16,11 @@ const CategorySchema = new Schema(
   { timestamps: true }
 );
 
-// ! FALTA COMPLETAR ACA
+CategorySchema.virtual("assets", {
+  ref: "Asset",
+  localField: "_id",
+  foreignField: "category",
+  justOne: false,
+});
 
 export const CategoryModel = model("Category", CategorySchema);
