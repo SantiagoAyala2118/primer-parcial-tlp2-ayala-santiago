@@ -3,16 +3,7 @@ import { signToken } from "../helpers/jwt.helper.js";
 import { UserModel } from "../models/mongoose/user.model.js";
 
 export const register = async (req, res) => {
-  const {
-    username,
-    email,
-    password,
-    role,
-    employee_number,
-    first_name,
-    last_name,
-    phone,
-  } = req.body;
+  const { username, email, password, role, profile } = req.body;
   try {
     // TODO: crear usuario con password hasheada y profile embebido
 
@@ -24,10 +15,11 @@ export const register = async (req, res) => {
       email: email,
       password: hashedPassword,
       role: role,
-      employee_number: employee_number,
-      first_name: first_name,
-      last_name: last_name,
-      phone: phone,
+      profile: profile,
+      // employee_number: employee_number,
+      // first_name: first_name,
+      // last_name: last_name,
+      // phone: phone,
     });
 
     return res.status(201).json({ msg: "Usuario registrado correctamente" });
@@ -38,10 +30,10 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   try {
     // TODO: buscar user, validar password, firmar JWT y setear cookie httpOnly
-    const user = await UserModel.findOne({ username });
+    const user = await UserModel.findOne({ email });
 
     if (!user) {
       return res.status(404).json({
@@ -83,7 +75,7 @@ export const getProfile = async (req, res) => {
     // TODO: devolver profile del user logueado actualmente
     const userLogged = req.user;
 
-    const profile = await UserModel.findOne({ _id: userLogged._id }).select(
+    const profile = await UserModel.findOne({ _id: userLogged.id }).select(
       "profile"
     );
     return res.status(200).json({ data: profile });
