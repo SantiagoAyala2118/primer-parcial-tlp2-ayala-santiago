@@ -27,8 +27,10 @@ CategoryModel.belongsToMany(AssetModel, {
 AssetCategoryModel.belongsTo(AssetModel, {
   foreignKey: "asset_id",
   as: "assets",
+  onDelete: "CASCADE",
 });
 AssetCategoryModel.belongsTo(CategoryModel, {
   foreignKey: "category_id",
   as: "categories",
+  onDelete: "CASCADE",
 });
