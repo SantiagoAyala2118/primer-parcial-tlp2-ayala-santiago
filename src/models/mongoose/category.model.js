@@ -16,6 +16,16 @@ const CategorySchema = new Schema(
   { timestamps: true }
 );
 
+CategorySchema.pre("findByIdAndDelete", async (doc) => {
+  if (!doc) return;
+
+  if (doc) {
+    const ArticleModel = model("Article");
+
+    await ArticleModel.deleteMany({ author: doc._id });
+  }
+});
+
 CategorySchema.virtual("assets", {
   ref: "Asset",
   localField: "_id",

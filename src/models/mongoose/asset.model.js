@@ -32,4 +32,14 @@ const AssetSchema = new Schema(
   { timestamps: true }
 );
 
+AssetSchema.pre("findByIdAndDelete", async (doc) => {
+  if (!doc) return;
+
+  if (doc) {
+    const CategoryModel = model("Category");
+
+    await CategoryModel.deleteMany({ author: doc._id });
+  }
+});
+
 export const AssetModel = model("Asset", AssetSchema);
